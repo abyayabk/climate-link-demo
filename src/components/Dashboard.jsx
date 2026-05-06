@@ -43,8 +43,7 @@ export default function Dashboard() {
     const userRoleKey = user.role?.toLowerCase() || 'farmer';
     const content = roleGuidance[userRoleKey] || roleGuidance.farmer;
 
-    // const API_KEY = "9ab0c37f3c6af9d88fc8e276e96ca85b"; // Your provided key[cite: 3]
-    const API_KEY = "9ab0c"; // Your provided key[cite: 3]
+    const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
     useEffect(() => {
         const fetchWeatherData = async () => {
