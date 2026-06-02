@@ -15,6 +15,7 @@ import MapSection from './MapSection';
 import { useTranslation } from 'react-i18next';
 import { roleGuidance } from '../data/roleContent'; // The logic file we created
 import SeasonalCalendar from './SeasonalCalendar';
+import { Link } from 'react-router-dom'; // Use Link instead of useNavigate
 
 // Updated with coordinates for accurate API fetching[cite: 3]
 const nigeriaRegions = [
@@ -207,139 +208,13 @@ export default function Dashboard() {
                     </div>
                 </motion.div>
 
-                {/* ROLE-SPECIFIC GUIDANCE (The Decision Engine) */}
-                <section className="space-y-6">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h2 className={`text-2xl font-black tracking-tight ${textPrimary}`}>{content.title}</h2>
-                            <p className={`text-sm ${textSecondary}`}>{content.description}</p>
-                        </div>
-                        <div className={`p-3 rounded-2xl ${theme ? 'bg-white' : 'bg-slate-900'} border border-blue-500/20`}>
-                            <Briefcase className="text-blue-500" size={24} />
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {content.actions.map((action, i) => (
-                            <motion.div
-                                key={i}
-                                whileHover={{ y: -4 }}
-                                className={cardStyle}
-                            >
-                                <div className="flex items-start justify-between mb-4">
-                                    <div className={`p-2 rounded-xl ${theme ? 'bg-slate-50' : 'bg-slate-800'}`}>
-                                        <ShieldCheck size={18} className="text-blue-500" />
-                                    </div>
-                                    <ArrowRight size={14} className={textMuted} />
-                                </div>
-                                <h3 className={`font-bold text-base mb-1 ${textPrimary}`}>{action.label}</h3>
-                                <p className={`text-xs leading-relaxed ${textSecondary}`}>{action.info}</p>
-                            </motion.div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* ACTIONABLE CLIMATE INTELLIGENCE */}
-                <motion.section className={cardStyle}>
-                    <div className="flex items-center justify-between mb-6">
-                        <div className="flex items-center gap-2">
-                            <AlertTriangle className="w-5 h-5 text-orange-500" />
-                            <h2 className={`text-lg font-bold ${textPrimary}`}>Live Risk Assessment</h2>
-                        </div>
-                        <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${theme ? 'bg-slate-100 text-slate-600' : 'bg-slate-800 text-slate-400'
-                            }`}>
-                            Role: {user.role || 'User'}
-                        </span>
-                    </div>
-
-                    <div className="space-y-4">
-                        {/* Dynamic Alert Box */}
-                        <div className={`rounded-2xl border-2 p-6 transition-all ${weather.current.rainfall > 5
-                            ? "border-orange-500/50 bg-orange-500/5"
-                            : "border-emerald-500/20 bg-emerald-500/5"
-                            }`}>
-                            <div className="flex justify-between items-start mb-4">
-                                <div>
-                                    <h3 className={`font-black text-sm uppercase tracking-tight ${textPrimary}`}>
-                                        {weather.current.rainfall > 5 ? 'High Moisture Warning' : 'Stable Conditions'}
-                                    </h3>
-                                    <p className={`text-xs ${textSecondary} mt-1`}>
-                                        Current Rainfall: <span className="font-bold text-blue-500">{weather.current.rainfall}mm/hr</span>
-                                    </p>
-                                </div>
-                                <div className={`px-2 py-1 rounded text-[10px] font-bold ${weather.current.rainfall > 5 ? 'bg-orange-500 text-white' : 'bg-emerald-500 text-white'
-                                    }`}>
-                                    {weather.current.rainfall > 5 ? 'ACTION REQUIRED' : 'NORMAL'}
-                                </div>
-                            </div>
-
-                            {/* RULE-BASED ADVICE (The Demo "Brain") */}
-                            <div className={`p-4 rounded-xl ${theme ? 'bg-white/50' : 'bg-slate-900/50'} border border-black/5`}>
-                                <p className={`text-sm leading-relaxed ${textPrimary}`}>
-                                    <span className="font-bold">Advice for {user.role}: </span>
-                                    {weather.current.rainfall > 5 ? (
-                                        // If it's raining heavily
-                                        user.role === 'Farmer'
-                                            ? "Check Area Yield Index thresholds; heavy rain may trigger a moisture index payout if sustained."
-                                            : user.role === 'Government'
-                                                ? "Activate local flood contingency plans and monitor river levels in high-risk zones."
-                                                : "Alert community leaders to potential flash flooding and verify emergency communication lines."
-                                    ) : (
-                                        // If it's NOT raining heavily
-                                        user.role === 'Farmer'
-                                            ? "Ideal conditions for routine maintenance. Review your NAIC policy terms for the upcoming season."
-                                            : user.role === 'Government'
-                                                ? "Continue data collection for risk modeling. No immediate fiscal shocks detected."
-                                                : "Great time for community literacy workshops on Climate Risk Insurance (CRI) benefits."
-                                    )}
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Priority Tags from roleContent.js */}
-                        <div className="pt-2">
-                            <p className={`text-[10px] font-bold uppercase tracking-widest ${textMuted} mb-3 ml-1`}>
-                                Persistent Vulnerabilities
-                            </p>
-                            <div className="flex flex-wrap gap-2">
-                                {content.risks.map((risk, i) => (
-                                    <span key={i} className={`px-3 py-1.5 rounded-lg text-[10px] font-bold border ${theme
-                                        ? "bg-white border-slate-200 text-slate-700"
-                                        : "bg-slate-800 border-slate-700 text-slate-300"
-                                        }`}>
-                                        {risk}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </motion.section>
-
                 {/* DIVIDER LINE */}
                 <div className={`h-px w-full ${theme ? 'bg-slate-200' : 'bg-slate-800'}`} />
 
-                {/* <MapSection /> */}
-
                 {/* Quick Stats Grid */}
-                <h2 className={`text-[10px] font-black uppercase tracking-[0.3em] ${textMuted}`}>Meteorological Overview</h2>
-                <motion.div className="grid grid-cols-2 lg:grid-cols-2 gap-4">
+                <h2 className={`text-[10px] font-black uppercase tracking-[0.3em] ${textMuted}`}>Forecast</h2>
 
-                    <div className={cardStyle}>
-                        <div className={`text-xs mb-2 ${textMuted}`}>Visibility</div>
-                        <div className={`text-3xl font-light mb-1 ${textPrimary}`}>{weather.current.visibility}</div>
-                        <div className={`text-xs ${textMuted}`}>km</div>
-                    </div>
-                    <div className={cardStyle}>
-                        <div className={`text-xs mb-2 ${textMuted}`}>Pressure</div>
-                        <div className={`text-3xl font-light mb-1 ${textPrimary}`}>{weather.current.pressure}</div>
-                        <div className={`text-xs ${textMuted}`}>hPa</div>
-                    </div>
-                    <div className={cardStyle}>
-                        <div className={`text-xs mb-2 ${textMuted}`}>Air Quality</div>
-                        <div className={`text-3xl font-light mb-1 ${textPrimary}`}>{weather.current.aqi}</div>
-                        <div className={`text-xs font-medium ${weather.current.aqiColor}`}>{weather.current.aqiText}</div>
-                    </div>
-                </motion.div>
+                {/* <MapSection /> */}
 
                 {/* Hourly Forecast */}
                 <motion.section className={cardStyle}>
@@ -388,6 +263,121 @@ export default function Dashboard() {
                 <motion.section>
                     <SeasonalCalendar region={user.region} theme={theme} />
                 </motion.section>
+
+                {/* DIVIDER LINE */}
+                <div className={`h-px w-full ${theme ? 'bg-slate-200' : 'bg-slate-800'}`} />
+
+                {/* Quick Stats Grid */}
+                <h2 className={`text-[10px] font-black uppercase tracking-[0.3em] ${textMuted}`}>RISK ASSESSMENT</h2>
+
+                {/* ACTIONABLE CLIMATE INTELLIGENCE */}
+                <motion.section className={cardStyle}>
+                    <div className="flex items-center justify-between mb-6">
+                        <div className="flex items-center gap-2">
+                            <AlertTriangle className="w-5 h-5 text-orange-500" />
+                            <h2 className={`text-lg font-bold ${textPrimary}`}>Live Risk Assessment</h2>
+                        </div>
+                        <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${theme ? 'bg-slate-100 text-slate-600' : 'bg-slate-800 text-slate-400'
+                            }`}>
+                            Role: {user.role || 'User'}
+                        </span>
+                    </div>
+
+                    <div className="space-y-4">
+                        {/* Dynamic Alert Box */}
+                        <div className={`rounded-2xl border-2 p-6 transition-all ${weather.current.rainfall > 5
+                            ? "border-orange-500/50 bg-orange-500/5"
+                            : "border-emerald-500/20 bg-emerald-500/5"
+                            }`}>
+                            <div className="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 className={`font-black text-sm uppercase tracking-tight ${textPrimary}`}>
+                                        {weather.current.rainfall > 5 ? 'High Moisture Warning' : 'Stable Conditions'}
+                                    </h3>
+                                    <p className={`text-xs ${textSecondary} mt-1`}>
+                                        Current Rainfall: <span className="font-bold text-blue-500">{weather.current.rainfall}mm/hr</span>
+                                    </p>
+                                </div>
+                                <div className={`px-2 py-1 rounded text-[10px] font-bold ${weather.current.rainfall > 5 ? 'bg-orange-500 text-white' : 'bg-emerald-500 text-white'
+                                    }`}>
+                                    {weather.current.rainfall > 5 ? 'ACTION REQUIRED' : 'NORMAL'}
+                                </div>
+                            </div>
+
+                            {/* RULE-BASED ADVICE (The Demo "Brain") */}
+                            <div className={`p-4 rounded-xl ${theme ? 'bg-white/50' : 'bg-slate-900/50'} border border-black/5`}>
+                                <p className={`text-sm leading-relaxed ${textPrimary}`}>
+                                    <span className="font-bold">Advice for {user.role}: </span>
+                                    {user.role === 'farmer' ? (
+                                        'Stable conditions right now—this is the ideal time to get insurance coverage before disaster strikes.'
+                                    ) : (
+                                        "Great time for community literacy workshops on Climate Risk Insurance (CRI) benefits."
+                                    )}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Priority Tags from roleContent.js */}
+                        <div className="pt-2">
+                            <p className={`text-[10px] font-bold uppercase tracking-widest ${textMuted} mb-3 ml-1`}>
+                                Persistent Vulnerabilities
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                                {content.risks.map((risk, i) => (
+                                    <span key={i} className={`px-3 py-1.5 rounded-lg text-[10px] font-bold border ${theme
+                                        ? "bg-white border-slate-200 text-slate-700"
+                                        : "bg-slate-800 border-slate-700 text-slate-300"
+                                        }`}>
+                                        {risk}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </motion.section>
+
+                {/* DIVIDER LINE */}
+                <div className={`h-px w-full ${theme ? 'bg-slate-200' : 'bg-slate-800'}`} />
+
+                {/* Quick Stats Grid */}
+                <h2 className={`text-[10px] font-black uppercase tracking-[0.3em] ${textMuted}`}>INSURANCE OPTIONS</h2>
+
+                {/* ROLE-SPECIFIC GUIDANCE (The Decision Engine) */}
+                <section className="space-y-6">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <h2 className={`text-2xl font-black tracking-tight ${textPrimary}`}>{content.title}</h2>
+                            <p className={`text-sm ${textSecondary}`}>{content.description}</p>
+                        </div>
+                        <div className={`p-3 rounded-2xl ${theme ? 'bg-white' : 'bg-slate-900'} border border-blue-500/20`}>
+                            <Briefcase className="text-blue-500" size={24} />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {content.actions.map((action, i) => (
+                            <Link
+                                to={action.link}
+                                key={i}
+                                className="block no-underline" // Block ensures the link covers the whole grid area
+                            >
+                                <motion.div
+                                    whileHover={{ y: -4 }}
+                                    className={`${cardStyle} cursor-pointer h-full`} // added cursor-pointer and full height
+                                >
+                                    <div className="flex items-start justify-between mb-4">
+                                        <div className={`p-2 rounded-xl ${theme ? 'bg-slate-50' : 'bg-slate-800'}`}>
+                                            <ShieldCheck size={18} className="text-blue-500" />
+                                        </div>
+                                        <ArrowRight size={14} className={textMuted} />
+                                    </div>
+                                    <h3 className={`font-bold text-base mb-1 ${textPrimary}`}>{action.label}</h3>
+                                    <p className={`text-xs leading-relaxed ${textSecondary}`}>{action.info}</p>
+                                </motion.div>
+                            </Link>
+                        ))}
+                    </div>
+                </section>
 
                 <div className="h-20"></div>
             </div>

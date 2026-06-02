@@ -11,6 +11,15 @@ import Glossary from './components/Glossary';
 import Faq from './components/Faq';
 import About from './components/About';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import AreaYieldInsurance from './components/FarmerInsurance/AreaYieldInsurance';
+import SoilMoistureInsurance from './components/FarmerInsurance/SoilMoistureInsurance';
+import WeatherInsurance from './components/FarmerInsurance/WeatherInsurance';
+import TemperatureInsurance from './components/FarmerInsurance/TemperatureInsurance';
+import EvapotranspirationInsurance from './components/FarmerInsurance/EvapotranspirationInsurance';
+import PostHarvestHeatStressInsurance from './components/FarmerInsurance/PostHarvestHeatStressInsurance';
+import FodderCoverInsurance from './components/FarmerInsurance/FodderCoverInsurance';
+import IndexBasedLivestockInsurance from './components/FarmerInsurance/IndexBasedLivestockInsurance';
+import PictureBasedCropInsurance from './components/FarmerInsurance/PictureBasedCropInsurance';
 
 function App() {
   const { theme, setTheme } = useUser();
@@ -47,6 +56,16 @@ function App() {
           <Route path="faq" element={<Faq />} />
           <Route path="about" element={<About />} />
           <Route path="privacypolicy" element={<PrivacyPolicy />} />
+          <Route path="areayieldinsurance" element={<AreaYieldInsurance />} />
+          <Route path="soilmoistureinsurance" element={<SoilMoistureInsurance />} />
+          <Route path="weatherinsurance" element={<WeatherInsurance />} />
+          <Route path="temperatureinsurance" element={<TemperatureInsurance />} />
+          <Route path="evapotranspirationinsurance" element={<EvapotranspirationInsurance />} />
+          <Route path="postharvestheatstressinsurance" element={<PostHarvestHeatStressInsurance />} />
+          <Route path="foddercoverinsurance" element={<FodderCoverInsurance />} />
+          <Route path="indexbasedlivestockinsurance" element={<IndexBasedLivestockInsurance />} />
+          <Route path="picturebasedcropinsurance" element={<PictureBasedCropInsurance />} />
+
         </Route>
 
         {/* Fallback */}

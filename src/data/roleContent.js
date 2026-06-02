@@ -53,8 +53,15 @@ export const roleGuidance = {
     title: "Agricultural Resilience",
     description: "Protect your harvest and livelihood with subsidized crop insurance.",
     actions: [
-      { label: "View Crop Insurance", link: "/home/glossary", info: "Protect against drought, pests, or flood damage via NAIC." },
-      { label: "Planting Advice", link: "/home/faq", info: "Adapt irrigation and harvesting based on seasonal outlooks." }
+      { label: "Area Yield Insurance", link: "/home/areayieldinsurance", info: "Compensation when area yield falls below threshold." },
+      { label: "Soil Moisture Insurance", link: "/home/soilmoistureinsurance", info: "Adapt irrigation and harvesting based on seasonal outlooks." },
+      { label: "Weather Index Insurance", link: "/home/weatherinsurance", info: "Compensation when weather parameters exceed predefined thresholds" },
+      { label: "Temperature Index Insurance", link: "/home/temperatureinsurance", info: "Protection from heat/cold stress during critical months." },
+      { label: "Evapotranspiration (ET) Index Insurance", link: "/home/evapotranspirationinsurance", info: "Advanced drought protection measuring crop water stress beyond rainfall alone" },
+      { label: "Post-Harvest Heat Stress Insurance", link: "/home/postharvestheatstressinsurance", info: "Protection for stored produce from heat and humidity spoilage" },
+      { label: "Fodder Cover Insurance", link: "/home/foddercoverinsurance", info: "Protection against reduced feed availability for livestock" },
+      { label: "Index-Based Livestock Insurance (IBLI)", link: "/home/indexbasedlivestockinsurance", info: "Proactive protection when grazing conditions become too harsh for livestock" },
+      { label: "Picture-Based Crop Insurance", link: "/home/picturebasedcropinsurance", info: "Digital assessment of crop losses using smartphone photos" },
     ],
     risks: ["Crop Loss", "Soil Erosion", "Heat Stress"],
     finance: "Agricultural microinsurance and NIRSAL credit guarantees."
